@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import Row from "./Row";
 
 function Board() {
-  const ARRAY_HEIGHT = 70;
-  const ARRAY_WIDTH = 120;
-  const temp = new Array(ARRAY_WIDTH).fill(null);
-  const [grid, setGrid] = useState(
-    temp.map((row) => randomArray(ARRAY_HEIGHT))
-  );
+  const GRID_HEIGHT = 70;
+  const GRID_WIDTH = 120;
+  const temp = new Array(GRID_WIDTH).fill(null);
+  // Initialize grid with an approximately even distribution of live/dead cells
+  const [grid, setGrid] = useState(temp.map((row) => randomArray(GRID_HEIGHT)));
 
+  // Main game loop
   useEffect(() => {
     // Check whether a cell lives or dies
-    function checkCells() {
-      return grid.map((column, i) => {
+    function checkCells(g) {
+      return g.map((column, i) => {
         return column.map((cell, j) => {
           // Check how many of the cell's neighbors are alive
           let live = 0;
@@ -42,9 +42,12 @@ function Board() {
         });
       });
     }
+    // Set the rate at which the board re-renders
     const interval = setInterval(() => {
-      const newGrid = checkCells();
-      setGrid(newGrid);
+      setGrid((oldGrid) => {
+        const newGrid = checkCells(oldGrid);
+        return newGrid;
+      });
     }, 200);
     return () => clearInterval(interval);
   });
@@ -55,7 +58,7 @@ function Board() {
 
   function randomArray() {
     const arr = [];
-    for (let i = 0; i < ARRAY_HEIGHT; i++) {
+    for (let i = 0; i < GRID_HEIGHT; i++) {
       arr.push(randomNum() > 5 ? true : false);
     }
     return arr;
