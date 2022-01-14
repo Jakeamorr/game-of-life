@@ -1,6 +1,18 @@
 .app {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-title {
+  color: white;
+  margin: 0;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.game-title:hover {
+  text-decoration: underline;
 }
 
 .board {
