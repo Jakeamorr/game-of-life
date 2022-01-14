@@ -24,13 +24,13 @@ function Board() {
         });
       });
     }
-    const loopId = setTimeout(() => {
+    const interval = setInterval(() => {
       const newGrid = checkNeighbors();
       console.log(newGrid === grid);
       setGrid(newGrid);
     }, 1000);
-    return clearInterval(loopId);
-  }, []);
+    return () => clearInterval(interval);
+  });
 
   function randomNum() {
     return Math.floor(Math.random() * 10);
