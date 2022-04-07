@@ -21,4 +21,4 @@ steps:
     displayName: "npm install and build"
 
   - publish: $(System.DefaultWorkingDirectory)/build/static
-    artifact: WebApp
+    artifact: drop
