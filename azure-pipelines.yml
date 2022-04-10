@@ -20,5 +20,9 @@ steps:
       npm run build
     displayName: "npm install and build"
 
+  - script: |
+      npm run build
+    displayName: "npm build"
+
   - publish: $(System.DefaultWorkingDirectory)\build
     artifact: drop
